@@ -149,16 +149,16 @@ export function HomeworkDetail({ homework, patient, onBack }: HomeworkDetailProp
 
         {/* Patient Submission */}
         {homework.status !== 'pending' && (
-          <Card className="p-5 bg-white border-0 shadow-md mb-4">
+          <Card className="p-5 bg-white border-0 shadow-md mb-4 overflow-hidden">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-[#5C5552]">患者提交内容</h3>
-              <span className="text-sm text-[#8B9A9E]">{patientSubmission.date}</span>
+              <span className="text-sm text-[#8B9A9E] truncate ml-2">{patientSubmission.date}</span>
             </div>
-            <div className="p-4 bg-[#F2F2F2] rounded-lg mb-4">
-              <p className="text-[#5C5552] whitespace-pre-wrap">{patientSubmission.content}</p>
+            <div className="p-4 bg-[#F2F2F2] rounded-lg mb-4 overflow-hidden">
+              <p className="text-[#5C5552] whitespace-pre-wrap break-words overflow-hidden">{patientSubmission.content}</p>
             </div>
-            <div className="border-l-4 border-[#8BA888] bg-[#8BA888]/5 p-4 rounded-r-lg">
-              <p className="text-sm text-[#5C5552]">
+            <div className="border-l-4 border-[#8BA888] bg-[#8BA888]/5 p-4 rounded-r-lg overflow-hidden">
+              <p className="text-sm text-[#5C5552] break-words">
                 <span className="text-[#8BA888]">情绪反馈：</span>
                 {patientSubmission.emotion}
               </p>
@@ -168,28 +168,30 @@ export function HomeworkDetail({ homework, patient, onBack }: HomeworkDetailProp
 
         {/* AI Evaluation Section - 只在待批阅状态显示 */}
         {homework.status === 'submitted' && (
-          <Card className="p-5 bg-white border-0 shadow-md mb-4">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-[#5C5552] flex items-center gap-2">
-                <Sparkles className="size-5 text-[#E8B44F]" />
-                AI 智能评估
+          <Card className="p-5 bg-white border-0 shadow-md mb-4 overflow-hidden">
+            <div className="flex items-center justify-between mb-4 gap-2">
+              <h3 className="text-[#5C5552] flex items-center gap-2 flex-shrink-0">
+                <Sparkles className="size-5 text-[#E8B44F] flex-shrink-0" />
+                <span className="truncate">AI 智能评估</span>
               </h3>
               {!evaluationResult && (
                 <Button
                   onClick={handleEvaluate}
                   disabled={isEvaluating}
                   size="sm"
-                  className="bg-gradient-to-r from-[#8BA888] to-[#7A9777] hover:from-[#7A9777] hover:to-[#6A8767] text-white"
+                  className="bg-gradient-to-r from-[#8BA888] to-[#7A9777] hover:from-[#7A9777] hover:to-[#6A8767] text-white flex-shrink-0"
                 >
                   {isEvaluating ? (
                     <>
-                      <Loader2 className="size-4 mr-2 animate-spin" />
-                      评估中...
+                      <Loader2 className="size-4 mr-1 animate-spin flex-shrink-0" />
+                      <span className="hidden sm:inline">评估中...</span>
+                      <span className="sm:hidden">评估</span>
                     </>
                   ) : (
                     <>
-                      <Sparkles className="size-4 mr-2" />
-                      开始评估
+                      <Sparkles className="size-4 mr-1 flex-shrink-0" />
+                      <span className="hidden sm:inline">开始评估</span>
+                      <span className="sm:hidden">评估</span>
                     </>
                   )}
                 </Button>
@@ -211,8 +213,8 @@ export function HomeworkDetail({ homework, patient, onBack }: HomeworkDetailProp
 
             {/* 评估错误提示 */}
             {evaluationError && (
-              <div className="p-4 bg-[#C97C7C]/10 border border-[#C97C7C]/20 rounded-lg">
-                <p className="text-[#C97C7C] text-sm">{evaluationError}</p>
+              <div className="p-4 bg-[#C97C7C]/10 border border-[#C97C7C]/20 rounded-lg overflow-hidden">
+                <p className="text-[#C97C7C] text-sm break-words">{evaluationError}</p>
                 <Button
                   onClick={handleEvaluate}
                   size="sm"
@@ -226,7 +228,7 @@ export function HomeworkDetail({ homework, patient, onBack }: HomeworkDetailProp
 
             {/* 评估结果展示 */}
             {evaluationResult && (
-              <div className="space-y-4">
+              <div className="space-y-4 overflow-hidden">
                 {/* 总分展示 */}
                 <div className="flex items-center justify-center p-4 bg-gradient-to-r from-[#8BA888]/10 to-[#E8B44F]/10 rounded-xl">
                   <div className="text-center">
@@ -242,28 +244,28 @@ export function HomeworkDetail({ homework, patient, onBack }: HomeworkDetailProp
                   {scoreDimensions.map((dim) => {
                     const Icon = dim.icon;
                     return (
-                      <div key={dim.label} className="text-center">
+                      <div key={dim.label} className="text-center min-w-0">
                         <div className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center ${getScoreBgColor(dim.score)}/10`}>
                           <Icon className={`size-5 ${getScoreColor(dim.score)}`} />
                         </div>
                         <div className={`text-lg font-semibold mt-1 ${getScoreColor(dim.score)}`}>
                           {dim.score}
                         </div>
-                        <div className="text-xs text-[#8B9A9E] leading-tight">{dim.label}</div>
+                        <div className="text-xs text-[#8B9A9E] leading-tight truncate px-1">{dim.label}</div>
                       </div>
                     );
                   })}
                 </div>
 
                 {/* 分数进度条 */}
-                <div className="space-y-3 pt-2">
+                <div className="space-y-3 pt-2 overflow-hidden">
                   {scoreDimensions.map((dim) => (
-                    <div key={dim.label} className="space-y-1">
-                      <div className="flex justify-between text-xs">
-                        <span className="text-[#5C5552]">{dim.label}</span>
-                        <span className={getScoreColor(dim.score)}>{dim.score}/20</span>
+                    <div key={dim.label} className="space-y-1 overflow-hidden">
+                      <div className="flex justify-between text-xs gap-2">
+                        <span className="text-[#5C5552] truncate">{dim.label}</span>
+                        <span className={`${getScoreColor(dim.score)} flex-shrink-0`}>{dim.score}/20</span>
                       </div>
-                      <div className="h-2 bg-[#F2F2F2] rounded-full overflow-hidden">
+                      <div className="h-2 bg-[#F2F2F2] rounded-full overflow-hidden flex-shrink-0">
                         <div 
                           className={`h-full rounded-full transition-all duration-500 ${getScoreBgColor(dim.score)}`}
                           style={{ width: `${(dim.score / 20) * 100}%` }}
@@ -274,12 +276,12 @@ export function HomeworkDetail({ homework, patient, onBack }: HomeworkDetailProp
                 </div>
 
                 {/* 医生专业评语 */}
-                <div className="mt-4 p-4 bg-[#F2F2F2] rounded-lg">
-                  <h4 className="text-sm font-medium text-[#5C5552] mb-2 flex items-center gap-2">
-                    <MessageSquare className="size-4 text-[#8B9A9E]" />
-                    专业评估意见
+                <div className="mt-4 p-4 bg-[#F2F2F2] rounded-lg overflow-hidden">
+                  <h4 className="text-sm font-medium text-[#5C5552] mb-2 flex items-center gap-2 flex-shrink-0">
+                    <MessageSquare className="size-4 text-[#8B9A9E] flex-shrink-0" />
+                    <span className="truncate">专业评估意见</span>
                   </h4>
-                  <p className="text-sm text-[#5C5552] whitespace-pre-wrap">{evaluationResult.doctor_comments}</p>
+                  <p className="text-sm text-[#5C5552] whitespace-pre-wrap break-words overflow-hidden max-h-40">{evaluationResult.doctor_comments}</p>
                 </div>
 
                 {/* 重新评估按钮 */}
@@ -299,10 +301,10 @@ export function HomeworkDetail({ homework, patient, onBack }: HomeworkDetailProp
 
         {/* Therapist Feedback Section */}
         {homework.status === 'submitted' && (
-          <Card className="p-5 bg-white border-0 shadow-md mb-4">
+          <Card className="p-5 bg-white border-0 shadow-md mb-4 overflow-hidden">
             <h3 className="text-[#5C5552] mb-3">治疗师反馈</h3>
             {evaluationResult && (
-              <p className="text-xs text-[#8B9A9E] mb-2">
+              <p className="text-xs text-[#8B9A9E] mb-2 break-words">
                 💡 已根据 AI 评估自动生成反馈建议，您可以直接使用或修改
               </p>
             )}
@@ -310,17 +312,17 @@ export function HomeworkDetail({ homework, patient, onBack }: HomeworkDetailProp
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
               placeholder="输入您的专业反馈和建议..."
-              className="min-h-32 bg-white border-[#D4C5BC] text-[#5C5552] placeholder:text-[#8B9A9E]"
+              className="min-h-32 bg-white border-[#D4C5BC] text-[#5C5552] placeholder:text-[#8B9A9E] overflow-hidden"
             />
           </Card>
         )}
 
         {/* Completed Feedback Display */}
         {homework.status === 'completed' && (
-          <Card className="p-5 bg-white border-0 shadow-md mb-4">
+          <Card className="p-5 bg-white border-0 shadow-md mb-4 overflow-hidden">
             <h3 className="text-[#5C5552] mb-3">治疗师反馈</h3>
-            <div className="p-4 bg-[#8BA888]/5 rounded-lg">
-              <p className="text-[#5C5552]">
+            <div className="p-4 bg-[#8BA888]/5 rounded-lg overflow-hidden">
+              <p className="text-[#5C5552] break-words">
                 做得很好！你已经能够识别和记录自己的负面自动思维，这是CBT的重要一步。特别是在第三个情境中，你能够意识到"过度概括"这个认知偏差，说明你的自我觉察能力在提高。
                 
                 下一步建议：尝试在每个思维记录后，写下一个更平衡、更现实的替代想法。这将帮助你逐步改变思维模式。

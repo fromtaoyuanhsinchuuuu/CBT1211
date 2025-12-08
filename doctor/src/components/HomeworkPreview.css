@@ -1,0 +1,268 @@
+/* --- CSS 变量 (V12.0 设备沙盘版) --- */
+.homework-preview-page {
+  --bg-color: #F3F1EC;                /* 疗愈米白 - 页面背景 */
+  --card-bg: #FFFFFF;                 /* 卡片白 - 保持卡片纯净以突出 */
+  --primary-text-color: #4A4A4A;     /* 深灰文字 - 比纯黑更柔和 */
+  --secondary-text-color: #7A7A7A;   /* 次要文字 */
+  --title-color: #A18862;            /* 暖心赤土 - 主标题 */
+  --accent-color: #FDD85D;           /* 阳光蛋黄 - 主要按钮 */
+  --secondary-accent-color: #829891;  /* 宁静青石 - 链接/焦点色 */
+  --border-color: #EAEAEA;
+}
+
+/* --- 页面容器 --- */
+.homework-preview-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 页面内容容器，现在在屏幕内滚动 */
+.homework-preview-page .page-scroller {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 16px 0 16px; /* 底部padding设为0，因为有操作栏 */
+  -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
+}
+
+/* --- 顶部标题栏 --- */
+.homework-preview-page .header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.homework-preview-page .back-arrow {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-text-color);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 12px;
+}
+
+.homework-preview-page .title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--primary-text-color);
+}
+
+/* --- 卡片通用样式 --- */
+.homework-preview-page .card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(161, 136, 98, 0.1);
+  margin-bottom: 24px;
+}
+
+/* --- 作业总览卡片 --- */
+.homework-preview-page .homework-overview-card {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.homework-preview-page .homework-overview-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(161, 136, 98, 0.15);
+}
+
+.homework-preview-page .homework-overview-card:active {
+  transform: translateY(-2px);
+}
+
+.homework-preview-page .homework-overview-card .meta-info {
+  font-size: 14px;
+  color: var(--secondary-text-color);
+  margin-bottom: 0;
+}
+
+.homework-preview-page .homework-overview-card .homework-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--title-color);
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.homework-preview-page .homework-overview-card .content-snippet {
+  font-size: 16px;
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+}
+
+.homework-preview-page .view-detail-hint {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--secondary-accent-color);
+}
+
+.homework-preview-page .view-detail-hint .icon {
+  margin-right: 6px;
+}
+
+/* --- 个性化建议卡片 --- */
+.homework-preview-page .suggestion-card .card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--primary-text-color);
+}
+
+.homework-preview-page .suggestion-card .suggestion-textarea {
+  width: 100%;
+  min-height: 120px;
+  border: 1px solid var(--border-color);
+  background-color: #fcfcfc;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  resize: vertical;
+  line-height: 1.6;
+  font-family: inherit;
+  color: var(--primary-text-color);
+}
+
+.homework-preview-page .suggestion-card .suggestion-textarea::placeholder {
+  color: var(--secondary-text-color);
+}
+
+.homework-preview-page .suggestion-card .suggestion-textarea:focus {
+  outline: none;
+  border-color: var(--secondary-accent-color);
+  box-shadow: 0 0 0 2px rgba(130, 152, 145, 0.3);
+}
+
+/* --- 3. 重定义"固定"元素 (V12.0 核心修改) --- */
+.homework-preview-page .sticky-action-bar {
+  position: absolute; /* 从 fixed 改为 absolute - 相对于 phone-screen */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--card-bg);
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 999;
+  border-bottom-left-radius: 28px; /* 匹配屏幕圆角 */
+  border-bottom-right-radius: 28px;
+}
+
+.homework-preview-page .publish-button {
+  background-color: var(--accent-color);
+  color: #3D2B00;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.homework-preview-page .publish-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(253, 216, 93, 0.5);
+}
+
+.homework-preview-page .publish-button:active {
+  transform: translateY(0);
+}
+
+/* --- 琉璃卷轴弹窗 (核心交互) --- */
+.homework-preview-page .glass-scroll-overlay {
+  position: absolute; /* 从 fixed 改为 absolute - 相对于 phone-screen */
+  inset: 0;
+  background-color: rgba(60, 43, 0, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  border-radius: 28px; /* 匹配屏幕圆角 */
+}
+
+.homework-preview-page .glass-scroll-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.homework-preview-page .glass-scroll-modal {
+  background-color: rgba(243, 241, 236, 0.85);
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 420px;
+  max-height: calc(100% - 60px);
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
+}
+
+.homework-preview-page .glass-scroll-modal .modal-title {
+  font-family: 'Georgia', serif;
+  font-size: 28px;
+  color: var(--title-color);
+  margin-bottom: 24px;
+  padding-right: 40px;
+}
+
+.homework-preview-page .glass-scroll-modal .modal-content {
+  font-size: 17px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  color: var(--primary-text-color);
+}
+
+.homework-preview-page .close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  color: var(--primary-text-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  transition: background 0.2s;
+}
+
+.homework-preview-page .close-button:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.homework-preview-page .close-button:active {
+  background: rgba(0, 0, 0, 0.2);
+}
