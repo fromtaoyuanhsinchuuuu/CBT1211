@@ -3,7 +3,7 @@ const cors = require('cors');
 const { patients, sessions, homeworks } = require('./db');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001; // allow override to avoid port conflicts
 
 app.use(cors());
 app.use(express.json());
