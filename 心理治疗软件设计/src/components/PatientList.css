@@ -1,0 +1,201 @@
+/* --- V18.0 选择患者页面样式 (绿洲名册) --- */
+.patient-list-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FBF9F3;
+  overflow: hidden;
+}
+
+/* 噪点纹理 */
+.patient-list-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.04"/></svg>');
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* --- 页面布局与头部 --- */
+.patient-list-page .page-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.patient-list-page .header {
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.patient-list-page .back-button {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #635F53;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.patient-list-page .back-button:hover {
+  color: #4C4A42;
+}
+
+.patient-list-page .header-title-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* 标题背景的有机色块 */
+.patient-list-page .header-title-container::before {
+  content: '';
+  position: absolute;
+  width: 130%;
+  height: 60%;
+  background-color: #D7D4C3;
+  border-radius: 10px;
+  bottom: -5%;
+  left: -15%;
+  z-index: -1;
+  transform: rotate(-2deg);
+  opacity: 0.6;
+}
+
+.patient-list-page .header .title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #635F53;
+  margin: 0;
+}
+
+/* --- 搜索框 --- */
+.patient-list-page .search-container {
+  padding: 16px 28px;
+  flex-shrink: 0;
+}
+
+.patient-list-page .search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #EAE8E1;
+  border-radius: 99px;
+  padding: 14px 20px;
+  gap: 12px;
+}
+
+.patient-list-page .search-bar svg {
+  color: #A9A599;
+  flex-shrink: 0;
+}
+
+.patient-list-page .search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  color: #4C4A42;
+  font-family: inherit;
+}
+
+.patient-list-page .search-bar input::placeholder {
+  color: #A9A599;
+}
+
+/* --- 患者列表 --- */
+.patient-list-page .patient-list {
+  list-style: none;
+  padding: 0 28px;
+  flex: 1;
+  overflow-y: auto;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.patient-list-page .patient-item {
+  background-color: white;
+  border-radius: 28px;
+  padding: 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0px 10px 30px -10px rgba(169, 163, 142, 0.25);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.patient-list-page .patient-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 15px 35px -8px rgba(169, 163, 142, 0.4);
+}
+
+.patient-list-page .patient-item:active {
+  transform: translateY(-2px);
+}
+
+/* 会呼吸的头像 */
+.patient-list-page .patient-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background-color: #D7D4C3;
+}
+
+.patient-list-page .patient-avatar svg {
+  color: #4C4A42;
+}
+
+.patient-list-page .patient-info {
+  flex-grow: 1;
+}
+
+.patient-list-page .patient-info .name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #4C4A42;
+  margin-bottom: 6px;
+}
+
+.patient-list-page .patient-info .last-session {
+  font-size: 14px;
+  color: #8C887D;
+}
+
+.patient-list-page .arrow-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.patient-list-page .arrow-icon svg {
+  color: #8C887D;
+}
+

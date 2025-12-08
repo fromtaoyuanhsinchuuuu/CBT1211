@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作业预览与发布 - 疗愈色彩版</title>
+    <style>
+        /* --- CSS 变量与全局设置 (V10.0 疗愈色彩更新) --- */
+        :root {
+            --bg-color: #F3F1EC;                /* 疗愈米白 - 页面背景 */
+            --card-bg: #FFFFFF;                 /* 卡片白 - 保持卡片纯净以突出 */
+            --primary-text-color: #4A4A4A;     /* 深灰文字 - 比纯黑更柔和 */
+            --secondary-text-color: #7A7A7A;   /* 次要文字 */
+            --title-color: #A18862;            /* 暖心赤土 - 主标题 */
+            --accent-color: #FDD85D;           /* 阳光蛋黄 - 主要按钮 */
+            --secondary-accent-color: #829891;  /* 宁静青石 - 链接/焦点色 */
+            --border-color: #EAEAEA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+        
+        /* --- 页面整体布局 --- */
+        .page-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 24px 16px 120px 16px;
+        }
+
+        /* --- 顶部标题栏 --- */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header .back-arrow {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-text-color);
+            text-decoration: none;
+        }
+
+        .header .title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-left: 12px;
+        }
+
+        /* --- 卡片通用样式 --- */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            /* 阴影调整为更微妙，以适应新色调 */
+            box-shadow: 0 4px 16px rgba(161, 136, 98, 0.1); 
+            margin-bottom: 24px;
+        }
+
+        /* --- 作业总览卡片 --- */
+        .homework-overview-card {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        
+        .homework-overview-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(161, 136, 98, 0.15);
+        }
+
+        .homework-overview-card .meta-info {
+            font-size: 14px;
+            color: var(--secondary-text-color);
+        }
+
+        .homework-overview-card .homework-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--title-color); /* 应用: 暖心赤土 */
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .homework-overview-card .content-snippet {
+            font-size: 16px;
+            line-height: 1.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .view-detail-hint {
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--secondary-accent-color); /* 应用: 宁静青石 */
+        }
+        .view-detail-hint .icon {
+            margin-right: 6px;
+        }
+
+
+        /* --- 个性化建议卡片 --- */
+        .suggestion-card .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .suggestion-card .suggestion-textarea {
+            width: 100%;
+            min-height: 120px;
+            border: 1px solid var(--border-color);
+            background-color: #fcfcfc; /* 输入框内给一个极浅的背景色 */
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        
+        .suggestion-card .suggestion-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-accent-color); /* 应用: 宁静青石 */
+            box-shadow: 0 0 0 2px rgba(130, 152, 145, 0.3);
+        }
+        
+        /* --- 底部粘性操作栏 --- */
+        .sticky-action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--card-bg);
+            padding: 16px;
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+            display: flex;
+            justify-content: flex-end;
+            z-index: 999;
+        }
+
+        .publish-button {
+            background-color: var(--accent-color); /* 应用: 阳光蛋黄 */
+            color: #3D2B00; /* 深棕色文字，保证在黄色背景上的可读性 */
+            font-size: 16px;
+            font-weight: 600; /* 加粗以突出 */
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px; /* 更圆润的按钮 */
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .publish-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(253, 216, 93, 0.5);
+        }
+
+        /* --- 琉璃卷轴弹窗 (核心交互) --- */
+        .glass-scroll-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(60, 43, 0, 0.2); /* 背景遮罩带一点暖色 */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 16px;
+
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .glass-scroll-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .glass-scroll-modal {
+            background-color: rgba(243, 241, 236, 0.85); /* 半透明质感，使用新的米白背景 */
+            border-radius: 16px;
+            padding: 32px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 100%;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.5); /* 增加微妙的边框，提升质感 */
+        }
+
+        .glass-scroll-modal .modal-title {
+            font-family: 'Georgia', serif;
+            font-size: 28px;
+            color: var(--title-color); /* 应用: 暖心赤土 */
+            margin-bottom: 24px;
+        }
+        
+        .glass-scroll-modal .modal-content {
+            font-size: 17px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 30px;
+            height: 30px;
+            background: rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            color: var(--primary-text-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        <header class="header">
+            <a href="#" class="back-arrow">&larr;</a>
+            <h1 class="title">作业预览与发布</h1>
+        </header>
+
+        <main>
+            <!-- 作业总览卡片 -->
+            <article class="card homework-overview-card" id="homeworkCard">
+                <p class="meta-info">王五 · 2025-11-20</p>
+                <h2 class="homework-title">思维记录表</h2>
+                <p class="content-snippet">
+                    记录本周引发负面情绪的事件、想法和感受。基于本次会话分析，患者表现出对工作压力的明显焦虑。建议使用思维记录表来帮助患者识别和挑战负面自动思维。这是摘要的后续部分，用于测试文字截断效果，确保超出三行的内容会被隐藏起来。
+                </p>
+                <div class="view-detail-hint">
+                    <span class="icon">🔍</span>
+                    <span>查看完整内容</span>
+                </div>
+            </article>
+
+            <!-- 个性化建议卡片 -->
+            <section class="card suggestion-card">
+                <h3 class="card-title">个性化建议</h3>
+                <textarea class="suggestion-textarea" id="suggestionTextarea" placeholder="回顾TA的努力，给予肯定。"></textarea>
+            </section>
+        </main>
+    </div>
+
+    <!-- 底部操作栏 -->
+    <footer class="sticky-action-bar">
+        <button class="publish-button">确认发布作业</button>
+    </footer>
+
+    <!-- 琉璃卷轴弹窗 (默认隐藏) -->
+    <div class="glass-scroll-overlay" id="modalOverlay">
+        <div class="glass-scroll-modal">
+            <button class="close-button" id="closeModalBtn">&times;</button>
+            <h2 class="modal-title">思维记录表</h2>
+            <div class="modal-content" id="modalContent">
+记录本周引发负面情绪的事件、想法和感受。基于本次会话分析，患者表现出对工作压力的明显焦虑。建议使用思维记录表来帮助患者识别和挑战负面自动思维。这是摘要的后续部分，用于测试文字截断效果，确保超出三行的内容会被隐藏起来。
+
+这是一个新的段落，展示了完整的作业内容。
+在这里，我们可以放置任意长度的文本，因为弹窗本身是支持垂直滚动的。
+
+核心要点：
+1. 识别自动思维。
+2. 评估其真实性。
+3. 寻找更适应性的替代想法。
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- JavaScript 交互逻辑 (无需更改) ---
+
+        // 1. 琉璃卷轴弹窗的打开与关闭
+        const homeworkCard = document.getElementById('homeworkCard');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        const closeModal = () => {
+            modalOverlay.classList.remove('visible');
+            document.body.classList.remove('modal-open');
+        };
+
+        homeworkCard.addEventListener('click', () => {
+            modalOverlay.classList.add('visible');
+            document.body.classList.add('modal-open');
+        });
+
+        closeModalBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // 2. 个性化建议输入框的动态占位符
+        const suggestionTextarea = document.getElementById('suggestionTextarea');
+        const placeholders = [
+            "可以从鼓励TA的进步开始...",
+            "试试具体指出TA的哪个想法很有价值？",
+            "回顾TA的努力，并给予肯定。",
+            "提出一个开放式问题，引导TA进一步思考。",
+        ];
+
+        suggestionTextarea.addEventListener('focus', () => {
+            const randomIndex = Math.floor(Math.random() * placeholders.length);
+            suggestionTextarea.placeholder = placeholders[randomIndex];
+        });
+
+    </script>
+</body>
+</html>

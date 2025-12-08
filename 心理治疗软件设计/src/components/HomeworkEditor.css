@@ -1,0 +1,597 @@
+/* --- 🎨 配色方案 (V36 最终完善版) --- */
+:root {
+  --c-green-main: #859B92;
+  --c-brown: #A28A5B;
+  --c-green-light: #ABB579;
+  --c-yellow: #F2CC41;
+  --c-bg: #E9EAE3;
+  --c-card: #FFFFFF;
+  --c-text-dark: #4A4843;
+  --c-text-light: #8C8A82;
+  --shadow-card: 0 12px 24px -6px rgba(133, 155, 146, 0.15);
+}
+
+.homework-editor-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--c-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 滚动区 --- */
+.homework-editor-page .page-scroller {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 24px 110px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* --- 头部 --- */
+.homework-editor-page .header {
+  padding: 50px 24px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--c-text-dark);
+}
+
+.homework-editor-page .btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid rgba(162, 138, 91, 0.1);
+  border: none;
+  padding: 0;
+}
+
+.homework-editor-page .btn-icon:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.homework-editor-page .header h1 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--c-text-dark);
+  margin: 0;
+}
+
+/* --- Section Title --- */
+.homework-editor-page .section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-brown);
+}
+
+.homework-editor-page .icon-box {
+  width: 24px;
+  height: 24px;
+  background: var(--c-green-main);
+  border-radius: 6px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homework-editor-page .icon-box svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* --- 摘要卡片 --- */
+.homework-editor-page .summary-card {
+  background: var(--c-card);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.homework-editor-page .summary-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--c-text-dark);
+  min-height: 80px;
+  outline: none;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.homework-editor-page .highlight {
+  background: linear-gradient(120deg, rgba(242, 204, 65, 0.4) 0%, rgba(242, 204, 65, 0.6) 100%);
+  border-radius: 4px;
+  padding: 0 2px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--c-brown);
+}
+
+/* 工具栏 */
+.homework-editor-page .tools-bar {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(162, 138, 91, 0.2);
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.homework-editor-page .tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.homework-editor-page .btn-highlighter {
+  background: rgba(242, 204, 65, 0.2);
+  color: #967D28;
+}
+
+.homework-editor-page .btn-highlighter.active {
+  background: var(--c-yellow);
+  color: #fff;
+}
+
+.homework-editor-page .btn-record {
+  background: #F5F5F5;
+  color: var(--c-text-light);
+}
+
+/* --- 作业 Grid --- */
+.homework-editor-page .grid-menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.homework-editor-page .type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 16px 4px;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.homework-editor-page .type-card svg {
+  width: 28px;
+  height: 28px;
+  color: var(--c-green-main);
+  margin-bottom: 8px;
+  opacity: 0.7;
+}
+
+.homework-editor-page .type-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-text-light);
+}
+
+.homework-editor-page .type-card.active {
+  background: #fff;
+  border-color: var(--c-green-main);
+  box-shadow: 0 4px 12px rgba(133, 155, 146, 0.2);
+  transform: translateY(-2px);
+}
+
+.homework-editor-page .type-card.active svg {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.homework-editor-page .type-card.active .type-name {
+  color: var(--c-green-main);
+}
+
+/* --- 📄 作业预览 + 建议区 (整合) --- */
+.homework-editor-page .preview-container {
+  background: var(--c-card);
+  border-radius: 24px;
+  overflow: hidden;
+  margin-top: 10px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.homework-editor-page .table-header {
+  background: rgba(133, 155, 146, 0.1);
+  padding: 12px 20px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-green-main);
+}
+
+.homework-editor-page #homework-area {
+  padding: 10px 20px 20px;
+}
+
+.homework-editor-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.homework-editor-page td {
+  padding: 14px 0;
+  border-bottom: 1px dashed #eee;
+  font-size: 14px;
+  color: var(--c-text-dark);
+}
+
+.homework-editor-page td:first-child {
+  color: var(--c-green-main);
+  font-weight: bold;
+  width: 30%;
+}
+
+/* 新增：建议板块 */
+.homework-editor-page .advice-section {
+  border-top: 1px dashed rgba(162, 138, 91, 0.2);
+  padding: 20px;
+  background: linear-gradient(to bottom, #fff, #FCFCFA);
+}
+
+.homework-editor-page .advice-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-brown);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.homework-editor-page .advice-input {
+  width: 100%;
+  border: none;
+  background: #F2F4F6;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 14px;
+  color: var(--c-text-dark);
+  line-height: 1.6;
+  resize: none;
+  min-height: 100px;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.homework-editor-page .advice-input:focus {
+  outline: 2px solid var(--c-green-main);
+  background: #fff;
+}
+
+.homework-editor-page .advice-input::placeholder {
+  color: #B0B0B0;
+  font-style: italic;
+}
+
+/* --- 底部 --- */
+.homework-editor-page .sticky-action-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 24px 30px;
+  background: linear-gradient(to top, var(--c-bg) 80%, transparent);
+  pointer-events: none;
+}
+
+.homework-editor-page .main-btn {
+  pointer-events: auto;
+  width: 100%;
+  padding: 18px;
+  background: var(--c-yellow);
+  color: #5C4D18;
+  border: none;
+  border-radius: 22px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 25px rgba(242, 204, 65, 0.3);
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.homework-editor-page .main-btn:active {
+  transform: scale(0.98);
+}
+
+/* Toast */
+.homework-editor-page .toast {
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 100;
+}
+
+.homework-editor-page .toast.show {
+  opacity: 1;
+}
+
+/* 分析中状态 */
+.homework-editor-page .analyzing-container {
+  margin-top: 40px;
+}
+
+.homework-editor-page .analyzing-card {
+  padding: 32px;
+  background: var(--c-card);
+  border-radius: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.homework-editor-page .analyzing-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.homework-editor-page .analyzing-icon {
+  margin-bottom: 16px;
+}
+
+.homework-editor-page .analyzing-title {
+  font-size: 20px;
+  color: var(--c-text-dark);
+  margin-bottom: 8px;
+}
+
+.homework-editor-page .analyzing-description {
+  color: var(--c-text-light);
+  margin-bottom: 24px;
+}
+
+.homework-editor-page .progress-bar-container {
+  width: 100%;
+  background: #F2F2F2;
+  border-radius: 9999px;
+  height: 12px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.homework-editor-page .progress-bar-fill {
+  height: 100%;
+  background: var(--c-green-main);
+  transition: width 0.3s ease-out;
+  border-radius: 9999px;
+}
+
+.homework-editor-page .progress-text {
+  font-size: 14px;
+  color: var(--c-text-light);
+}
+
+/* --- 完整记录模态框样式 --- */
+/* 1. 遮罩层 (背景模糊) */
+.homework-editor-page .modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(74, 72, 67, 0.4); /* 深褐色半透明 */
+  backdrop-filter: blur(6px); /* 高级毛玻璃 */
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.homework-editor-page .modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 2. 抽屉面板 (从底部滑出) */
+.homework-editor-page .modal-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 92%;
+  background: #FBFbf9; /* 极浅的米白，比纯白更有质感 */
+  border-radius: 32px 32px 0 0;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* iOS 物理动效曲线 */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.homework-editor-page .modal-overlay.active .modal-sheet {
+  transform: translateY(0);
+}
+
+/* 3. 头部样式 */
+.homework-editor-page .modal-header {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(162, 138, 91, 0.1);
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.homework-editor-page .modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.homework-editor-page .modal-title-group h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-text-dark);
+  margin: 0;
+}
+
+.homework-editor-page .icon-box-small {
+  width: 28px;
+  height: 28px;
+  background: var(--c-green-main);
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homework-editor-page .btn-close {
+  background: #F2F4F6;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--c-text-light);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.homework-editor-page .btn-close:hover {
+  background: #E5E7E9;
+}
+
+/* 4. 聊天记录内容区 */
+.homework-editor-page .modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: #FBFbf9;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 聊天气泡组 */
+.homework-editor-page .chat-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.homework-editor-page .chat-group.right {
+  flex-direction: row-reverse;
+}
+
+/* 头像 */
+.homework-editor-page .chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.homework-editor-page .chat-avatar.doc {
+  background: var(--c-green-main);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(133, 155, 146, 0.3);
+}
+
+.homework-editor-page .chat-avatar.pat {
+  background: var(--c-yellow);
+  color: #5C4D18;
+  box-shadow: 0 4px 10px rgba(242, 204, 65, 0.3);
+}
+
+/* 气泡本体 */
+.homework-editor-page .chat-bubble {
+  max-width: 75%;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  position: relative;
+}
+
+.homework-editor-page .chat-bubble.doc {
+  background: #fff;
+  color: var(--c-text-dark);
+  border-top-left-radius: 4px; /* 气泡角 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.homework-editor-page .chat-bubble.pat {
+  background: #EBECE8;
+  color: var(--c-text-dark); /* 深一点的米色 */
+  border-top-right-radius: 4px;
+}
+
+.homework-editor-page .chat-bubble p {
+  margin: 0;
+}
+
+/* 高亮文字效果 */
+.homework-editor-page .highlight-text {
+  background: rgba(242, 204, 65, 0.3);
+  border-bottom: 2px solid var(--c-yellow);
+  padding-bottom: 0px;
+  font-weight: 600;
+}
+
+.homework-editor-page .system-note {
+  text-align: center;
+  color: #ccc;
+  font-size: 12px;
+  margin-top: 30px;
+  font-style: italic;
+}
+
+/* 底部遮罩 */
+.homework-editor-page .modal-footer-gradient {
+  height: 40px;
+  flex-shrink: 0;
+  background: linear-gradient(to top, #FBFbf9, transparent);
+}
