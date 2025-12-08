@@ -15,6 +15,14 @@
 - 開發啟動：`npm run dev`（預設 <http://localhost:5173>）
 - 主要入口：`src/App.tsx`（Splash -> HomeworkCenter 多步流程）
 
+### 1b) 患者端前端 (frontend/patient-app)
+
+- 進入目錄：`cd frontend/patient-app`
+- 安裝依賴：`npm install`
+- 開發啟動：`npm run dev`（預設 <http://localhost:5174> 或 5173 旁邊的可用埠）
+- 主要入口：`App.tsx`（手機框 UI，含 Home/Profile/TaskRecord/TaskSubmission/Timeline 等頁）
+- 設定後端位址：複製 `.env.example` 為 `.env.local`，可調整 `VITE_API_BASE`（預設 <http://localhost:3001>）
+
 ### 2) 範例後端 (backend)
 
 - 進入目錄：`cd backend`
@@ -36,9 +44,18 @@
   - `agent_homework_evaluator.py`：用 LLM 評分作業並生成回饋
   - `compatibility_agent.py`：計算情緒同步/語義契合等指標並生成報告
 
+#### 啟用 LLM（預設為 mock，開啟後才會真連線）
+
+- 設定金鑰：`export OPENROUTER_API_KEY=your_key`（無金鑰時會用本地簡化計算）
+- 安裝依賴：`cd backend/python-api && pip install -r requirements.txt`
+- 啟動 FastAPI demo：`uvicorn api_demo:app --reload --port 8000`
+- 測試呼叫：`curl -X POST http://localhost:8000/evaluate_cbt -H 'Content-Type: application/json' -d '{"submission_text":"..."}'`
+- 若要在其他服務使用 `compatibility_agent.py`：建立 `OpenAI` 客戶端（openrouter base URL + key），再注入到代理類別，即可使用真實語義/共情計分；未注入時使用 mock/fallback。
+
 ## 目錄說明
 
 - `frontend/`：前端 UI（Vite + React）
+- `frontend/patient-app/`：患者端 Vite React App
 - `backend/`：Express 假資料 API
 - `backend/python-api/`：Python LLM/分析原型
 - `archive/design-prototype/`：設計原型打包

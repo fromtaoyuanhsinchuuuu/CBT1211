@@ -22,6 +22,7 @@ app.get('/api/homeworks', (req, res) => {
 
 app.post('/api/homeworks', (req, res) => {
   const newHomework = { ...req.body, id: Date.now() };
+  console.log('POST /api/homeworks', newHomework);
   homeworks.push(newHomework);
   res.status(201).json(newHomework);
 });

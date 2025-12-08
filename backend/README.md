@@ -6,7 +6,7 @@
 
 1. `cd backend`
 2. `npm install`
-3. `npm start`（預設 <http://localhost:3001>，可設 `PORT=4001` 避免佔用）
+3. `npm start`（預設 <http://localhost:3001>，可設 `PORT=4001` 避免佔用；提供醫生/患者端假資料）
 
 ## API 端點
 
