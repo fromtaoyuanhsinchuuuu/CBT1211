@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>My Tasks Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#F2CC41", // Ginger Yellow
+              sage: "#8DA38B", // Muted Green
+              olive: "#ABB579", // Olive Green
+              khaki: "#A28A5B", // Warm Brown/Khaki
+              "bg-light": "#F3F4F0", // Warm White
+              "bg-dark": "#1C1C1E", // Dark Mode
+              "text-main": "#333333",
+              'warm-white': '#E9EAE3',
+              'olive-green': '#859B92',
+              'warm-brown': '#A28A5B',
+              'ginger-yellow': '#F2CC41',
+            },
+            fontFamily: {
+              sans: ["Noto Sans SC", "sans-serif"],
+              display: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+            },
+            borderRadius: {
+              'xl': '1rem',
+              '2xl': '1.5rem',
+              '3xl': '2rem',
+            }
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        margin: 0;
+        min-height: max(884px, 100dvh);
+        background: linear-gradient(to bottom, #E9EAE3, #A28A5B);
+      }
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+      .burst-shape {
+        clip-path: polygon(50% 0%, 61% 25%, 78% 18%, 80% 39%, 98% 50%, 80% 61%, 78% 82%, 61% 75%, 50% 100%, 39% 75%, 22% 82%, 20% 61%, 2% 50%, 20% 39%, 22% 18%, 39% 25%);
+      }
+      .sun-icon {
+        clip-path: polygon(50% 0, 65.45% 11.23%, 85.36% 14.64%, 81.95% 34.55%, 98.77% 50%, 81.95% 65.45%, 85.36% 85.36%, 65.45% 88.77%, 50% 100%, 34.55% 88.77%, 14.64% 85.36%, 18.05% 65.45%, 1.23% 50%, 18.05% 34.55%, 14.64% 14.64%, 34.55% 11.23%);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.1",
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.1",
+    "framer-motion": "https://esm.sh/framer-motion@11"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="font-display bg-warm-white">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
